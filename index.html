@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Configurator</title>
+</head>
+
+<body>
+	<div id="app">
+		<header>
+			<h1>
+				Download your Configuration file here
+			</h1>
+			<h6>
+				Change your file name to conig.json and save to desired folder.
+			</h6>
+		</header>
+		<main>
+			<div id="content">			
+                <form id="dynamicForm">
+                    <!-- Dynamically generated form will be inserted here -->
+                  </form>
+                <button id="fetchButton" onclick="fetchJSON()">Reset</button>
+			</div>
+            
+		</main>
+	</div>
+	<script src="script.js"></script>
+</body>
+
+</html>
