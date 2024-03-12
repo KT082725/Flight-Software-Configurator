@@ -21,33 +21,7 @@ header {
 	padding: 1em;
 }
 
-nav {
-	background-color: #4caf50;
-}
 
-nav ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	justify-content: center;
-}
-
-nav li {
-	margin: 0;
-}
-
-nav a {
-	text-decoration: none;
-	color: #fff;
-	padding: 1em;
-	display: block;
-	transition: background-color 0.3s ease;
-}
-
-nav a:hover {
-	background-color: #45a049;
-}
 
 main {
 	flex: 1;
@@ -91,7 +65,13 @@ form {
 
 form label {
 	display: block;
+	width: 20%;
 	margin-bottom: 8px;
+	background-color: rgb(124, 10, 10);
+	color: #fff;
+	padding: 10px;
+	border: none;
+	border-radius: 4px;
 }
 
 form input,
