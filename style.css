@@ -104,7 +104,7 @@ form textarea {
 	border-radius: 4px;
 }
 
-form button {
+form button ,#fetchButton {
 	background-color: #4caf50;
 	color: #fff;
 	padding: 10px;

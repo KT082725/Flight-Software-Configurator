@@ -13,53 +13,20 @@
 	<div id="app">
 		<header>
 			<h1>
-				GeeksforGeeks
+				Download your Configuration file here
 			</h1>
-			<h1>
-				Single Page Application Using
-				HTML, CSS & JavaScript
-			</h1>
+			<h6>
+				Change your file name to conig.json and save to desired folder.
+			</h6>
 		</header>
-		<nav>
-			<ul>
-				<li>
-					<a href="#" onclick=
-					"changeContent('home')">
-						Home
-					</a>
-				</li>
-				<li>
-					<a href="#" onclick=
-					"changeContent('about')">
-						About
-					</a>
-				</li>
-				<li>
-					<a href="#" onclick=
-					"changeContent('contact')">
-						Contact
-					</a>
-				</li>
-			</ul>
-		</nav>
 		<main>
-			<div id="content">
-
-				<img src=
-"https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-12.png">
-				<h2>Welcome to Geeks for Geeks</h2>
-				<p>
-					Geeks for Geeks is a portal for computer
-					science enthusiasts, providing a wide range of
-					tutorials, articles, and resources.
-				</p>
-				<p>
-					Visit the GeeksforGeeks portal
-					<a href="https://www.geeksforgeeks.org/" target="_blank">
-						here
-					</a>.
-				</p>
+			<div id="content">			
+                <form id="dynamicForm">
+                    <!-- Dynamically generated form will be inserted here -->
+                  </form>
+                <button id="fetchButton" onclick="fetchJSON()">Reset</button>
 			</div>
+            
 		</main>
 	</div>
 	<script src="script.js"></script>

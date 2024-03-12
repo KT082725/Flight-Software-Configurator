@@ -1,77 +1,74 @@
-function changeContent(page) {
-	var contentDiv = document.getElementById('content');
-
-	switch (page) {
-		case 'home':
-			contentDiv.innerHTML = `
-				<img src=
-"https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-12.png">
-				<h2>
-					Welcome to the Home Page!
-				</h2>
-				<p>
-					This is the main page of our SPA.
-				</p>
-				<p>
-					Explore the different sections using
-					the navigation menu.
-				</p>
-				<button id="fetchButton" onclick="fetchJSON()">Fetch JSON</button>
-			`;
-			break;
-		case 'about':
-			contentDiv.innerHTML = `
-				<h2>About Us</h2>
-				<p>
-					This is the about page content. Learn more 
-					about our purpose and team.
-				</p>
-				<p>
-					We're passionate about creating engaging and
-					informative SPAs.
-				</p>
-			`;
-			break;
-		case 'contact':
-			contentDiv.innerHTML = 
-				`<h2>Contact Us</h2> 
-				<p>
-					Feel free to reach out to us!
-				</p> 
-				<form> 
-				<label for="name">Name:</label> 
-				<input type="text" id="name" name="name" 
-						placeholder="Your Name" required>
-				<label for="email">Email:</label> 
-				<input type="email" id="email" name="email" 
-						placeholder="Your Email" required>
-				<label for="message">Message:</label> 
-				<textarea id="message" name="message" 
-							placeholder="Your Message" 
-							rows="4" required>
-					</textarea>
-				<button type="submit">Send Message</button> 
-				</form>`;
-			break;
-
-		default:
-			contentDiv.innerHTML = '<h2>Page not found!</h2>';
-	}
-}
-function fetchJSON() {
-	fetch('https://github.com/Gagan-Space/Cansat-Flight-Software/blob/main/data/config.json'),{mode: 'no-cors'}
+// Define a function to fetch JSON data, set up the form, and handle form submission
+function setupForm() {
+	fetch('https://raw.githubusercontent.com/Gagan-Space/Cansat-Flight-Software/main/data/config.json')
 	  .then(response => {
 		if (!response.ok) {
 		  throw new Error('Network response was not ok');
 		}
 		return response.json();
 	  })
-	  .then(data => {
-		console.log(data); // This will log the JSON data to the console
-		// Do whatever you want with the JSON data here
+	  .then(originalData => {
+		console.log(originalData); // This will log the original JSON data to the console
+		
+		// Function to recursively create form elements based on JSON data
+		function createFormElements(parentElement, data, parentKeys = []) {
+		  for (const key in data) {
+			if (typeof data[key] === 'object') {
+			  createFormElements(parentElement, data[key], [...parentKeys, key]);
+			} else {
+			  const label = document.createElement('label');
+			  label.textContent = key;
+			  const input = document.createElement('input');
+			  input.setAttribute('type', 'text'); // You can adjust the input type based on your data
+			  input.setAttribute('name', [...parentKeys, key].join('.')); // Use dot notation for nested keys
+			  input.value = data[key];
+			  parentElement.appendChild(label);
+			  parentElement.appendChild(input);
+			}
+		  }
+		}
+  
+		// Assuming you have a <form> element with id 'dynamicForm' in your HTML
+		const form = document.getElementById('dynamicForm');
+		createFormElements(form, originalData);
+		
+		// Create a submit button
+		const submitButton = document.createElement('button');
+		submitButton.textContent = 'Submit';
+		form.appendChild(submitButton);
+  
+		// Attach event listener to submit button
+		submitButton.addEventListener('click', function(event) {
+		  event.preventDefault(); // Prevent form submission
+		  
+		  // Update original JSON data with form data
+		  updateOriginalData(originalData, form);
+  
+		  // Create a download link for the updated JSON data
+		  const downloadLink = document.createElement('a');
+		  downloadLink.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(originalData)));
+		  downloadLink.setAttribute('download', 'config.json');
+		  downloadLink.click(); // Programmatically trigger download
+		});
 	  })
 	  .catch(error => {
 		console.error('There was a problem with the fetch operation:', error);
 	  });
+  
+	// Function to update original JSON data with form data
+	function updateOriginalData(data, form) {
+	  const formData = new FormData(form);
+	  for (const [key, value] of formData.entries()) {
+		const keys = key.split('.');
+		let obj = data;
+		for (let i = 0; i < keys.length - 1; i++) {
+		  obj = obj[keys[i]];
+		}
+		obj[keys[keys.length - 1]] = value;
+	  }
+	}
   }
+  
+  // Call the setupForm function when the page loads
+  window.addEventListener('load', setupForm);
   
