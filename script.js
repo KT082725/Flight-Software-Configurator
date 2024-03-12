@@ -34,7 +34,7 @@ function setupForm() {
 		
 		// Create a submit button
 		const submitButton = document.createElement('button');
-		submitButton.textContent = 'Submit';
+		submitButton.textContent = 'Download';
 		form.appendChild(submitButton);
   
 		// Attach event listener to submit button
